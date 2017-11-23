@@ -1,0 +1,9 @@
+
+/* Class = "UIButton"; normalTitle = "Hello"; ObjectID = "ArT-nY-2hS"; */
+"ArT-nY-2hS.normalTitle" = "Hello";
+
+/* Class = "UILabel"; text = "New label"; ObjectID = "ER2-4e-knb"; */
+"ER2-4e-knb.text" = "New label";
+
+/* Class = "UILabel"; text = "Welcome to Auto Layout"; ObjectID = "rm5-hU-ygf"; */
+"rm5-hU-ygf.text" = "Welcome to Auto Layout";

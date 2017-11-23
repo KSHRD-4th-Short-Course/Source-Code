@@ -1,0 +1,9 @@
+/* 
+  File.strings
+  AutoLayoutDemo
+
+  Created by KSHRD on 11/22/17.
+  Copyright © 2017 KSHRD. All rights reserved.
+*/
+"Hello" = "Hello";
+"Error from server" = "No internet connection";

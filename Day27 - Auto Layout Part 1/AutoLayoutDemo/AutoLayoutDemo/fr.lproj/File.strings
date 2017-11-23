@@ -1,0 +1,10 @@
+/* 
+  File.strings
+  AutoLayoutDemo
+
+  Created by KSHRD on 11/22/17.
+  Copyright © 2017 KSHRD. All rights reserved.
+*/
+"Hello" = "Hello FR";
+
+"Error from server" = "Error connection";
