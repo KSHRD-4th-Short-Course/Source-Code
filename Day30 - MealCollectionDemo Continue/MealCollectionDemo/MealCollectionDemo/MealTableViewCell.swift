@@ -30,6 +30,7 @@ class MealTableViewCell: UITableViewCell {
     }
     
     func configureCell(with meal: [String : String]) {
+        // Set data to control
         nameLabel.text = meal["name"]
         categoryLabel.text = "Category: \(meal["category"] ?? "unknown")"
         thumbnailImageView.loadImageUsingUrlString(urlString: meal["thumbnail"]!)

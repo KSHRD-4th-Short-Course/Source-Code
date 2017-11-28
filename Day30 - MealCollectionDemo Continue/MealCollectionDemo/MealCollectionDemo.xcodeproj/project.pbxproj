@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC3EB5071FCD8AD600DE1868 /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3EB5061FCD8AD600DE1868 /* MealDetailViewController.swift */; };
 		EC4FF0C41FCC443C00C3A654 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FF0C31FCC443C00C3A654 /* UIImageViewExtension.swift */; };
 		ECEA4FDD1FC6EBCD00B5487A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEA4FDC1FC6EBCD00B5487A /* AppDelegate.swift */; };
 		ECEA4FDF1FC6EBCD00B5487A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEA4FDE1FC6EBCD00B5487A /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EC3EB5061FCD8AD600DE1868 /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
 		EC4FF0C31FCC443C00C3A654 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		ECEA4FD91FC6EBCD00B5487A /* MealCollectionDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MealCollectionDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECEA4FDC1FC6EBCD00B5487A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			children = (
 				ECEA4FDC1FC6EBCD00B5487A /* AppDelegate.swift */,
 				ECEA4FDE1FC6EBCD00B5487A /* ViewController.swift */,
+				EC3EB5061FCD8AD600DE1868 /* MealDetailViewController.swift */,
 				ECEA4FEE1FC6EBE700B5487A /* MealData.swift */,
 				EC4FF0C31FCC443C00C3A654 /* UIImageViewExtension.swift */,
 				ECEA4FE01FC6EBCD00B5487A /* Main.storyboard */,
@@ -151,6 +154,7 @@
 			files = (
 				EC4FF0C41FCC443C00C3A654 /* UIImageViewExtension.swift in Sources */,
 				ECEA4FF21FC6F4A600B5487A /* MealTableViewCell.swift in Sources */,
+				EC3EB5071FCD8AD600DE1868 /* MealDetailViewController.swift in Sources */,
 				ECEA4FDF1FC6EBCD00B5487A /* ViewController.swift in Sources */,
 				ECEA4FDD1FC6EBCD00B5487A /* AppDelegate.swift in Sources */,
 				ECEA4FEF1FC6EBE800B5487A /* MealData.swift in Sources */,

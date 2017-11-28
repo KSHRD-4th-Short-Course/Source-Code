@@ -47,7 +47,34 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Get Data from each selected row
+        let meal = mealData[indexPath.row]
+        
+        // Call Segue with ID
+        performSegue(withIdentifier: "showMealDetail", sender: meal)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // check segue id
+        if segue.identifier == "showMealDetail" {
+            
+            // Get MealDetailViewController object from Segue Destination
+            let dest = segue.destination as! MealDetailViewController
+            dest.mealHolder = sender as! [String : String]  // Pass Data
+        }
+    }
+    
 }
+
+
+
+
+
+
 
 
 
