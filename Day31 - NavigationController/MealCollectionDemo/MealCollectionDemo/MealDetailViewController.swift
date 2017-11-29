@@ -10,6 +10,7 @@ import UIKit
 
 class MealDetailViewController: UIViewController {
 
+    @IBOutlet weak var navigationItemTitle: UINavigationItem!
     // Outlet
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -23,6 +24,8 @@ class MealDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItemTitle.title = mealHolder["name"]
+        
         // Do any additional setup after loading the view.
         nameLabel.text = mealHolder["name"]
         categoryLabel.text = mealHolder["category"]
@@ -30,10 +33,23 @@ class MealDetailViewController: UIViewController {
         
         if let url = mealHolder["thumbnail"] {
             thumbnailImageView.downloadImageWith(urlString: url)
-            imageHeightConstrant.constant = (thumbnailImageView.image?.size.height)!
+            
+            thumbnailImageView.clipsToBounds = true
+            
+            // Calculate aspect
+            let aspect = (thumbnailImageView.image?.size.height ?? 0.0) / (thumbnailImageView.image?.size.width ?? 0.0)
+            
+            imageHeightConstrant.constant = thumbnailImageView.frame.size.width * aspect
         }else {
             print("url not found")
         }
+    }
+    
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
+        // Calculate aspect
+        let aspect = (thumbnailImageView.image?.size.height ?? 0.0) / (thumbnailImageView.image?.size.width ?? 0.0)
+        
+        imageHeightConstrant.constant = thumbnailImageView.frame.size.width * aspect
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,9 +57,10 @@ class MealDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
-    
-
     /*
     // MARK: - Navigation
 
