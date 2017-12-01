@@ -24,6 +24,7 @@ class MealDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationItemTitle.title = mealHolder["name"]
         
         // Do any additional setup after loading the view.
@@ -32,24 +33,32 @@ class MealDetailViewController: UIViewController {
         descriptionLabel.text = mealHolder["description"]
         
         if let url = mealHolder["thumbnail"] {
-            thumbnailImageView.downloadImageWith(urlString: url)
+            thumbnailImageView.downloadImageWith(urlString: url, completion: {
+                if let image = self.thumbnailImageView.image {
+                    // Calculate aspect
+                    let aspect = image.size.height / image.size.width
+                    
+                    self.imageHeightConstrant.constant = self.view.frame.size.width * aspect
+                }
+            })
             
             thumbnailImageView.clipsToBounds = true
-            
-            // Calculate aspect
-            let aspect = (thumbnailImageView.image?.size.height ?? 0.0) / (thumbnailImageView.image?.size.width ?? 0.0)
-            
-            imageHeightConstrant.constant = thumbnailImageView.frame.size.width * aspect
         }else {
             print("url not found")
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
     override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-        // Calculate aspect
-        let aspect = (thumbnailImageView.image?.size.height ?? 0.0) / (thumbnailImageView.image?.size.width ?? 0.0)
-        
-        imageHeightConstrant.constant = thumbnailImageView.frame.size.width * aspect
+        if let image = thumbnailImageView.image {
+            // Calculate aspect
+            let aspect = image.size.height / image.size.width
+            
+            imageHeightConstrant.constant = view.frame.size.width * aspect
+        }
     }
 
     override func didReceiveMemoryWarning() {

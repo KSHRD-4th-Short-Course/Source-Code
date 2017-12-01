@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController {
     
     // Outlet
     @IBOutlet weak var mealTableView: UITableView!
@@ -23,6 +23,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Set title
         self.title = "MEAL"
         
+        // Set up TableView
+        setupTableView()
+        
+        // Set up Bar Button Item
+        setupBarButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    func setupTableView() {
         // Set delegate and dataSource for tableview
         mealTableView.delegate = self
         mealTableView.dataSource = self
@@ -38,6 +55,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         mealData = MealData.shared.data
     }
     
+    func setupBarButton() {
+        // Custom Button
+//        let barButton = UIBarButtonItem()
+//        barButton.title = "Add Data"
+//        barButton.target = self
+//        barButton.action = #selector(AddDataAction)
+        
+        // Use Default Style Button
+        let barButton1 = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(AddDataAction))
+   
+        navigationItem.rightBarButtonItem = barButton1
+    }
+    
+    @objc func AddDataAction() {
+        print("Data has been added")
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // check segue id
+        if segue.identifier == "showMealDetail" {
+            
+            // Get MealDetailViewController object from Segue Destination
+            let dest = segue.destination as! MealDetailViewController
+            dest.mealHolder = sender as! [String : String]  // Pass Data
+        }
+    }
+}
+
+
+
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mealData.count
     }
@@ -61,19 +112,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // check segue id
-        if segue.identifier == "showMealDetail" {
-            
-            // Get MealDetailViewController object from Segue Destination
-            let dest = segue.destination as! MealDetailViewController
-            dest.mealHolder = sender as! [String : String]  // Pass Data
-        }
-    }
-    
 }
-
-
 
 
 

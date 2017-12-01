@@ -16,6 +16,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Set navigation bar background
+        UINavigationBar.appearance().setBackgroundImage(#imageLiteral(resourceName: "navigation_background"), for: .default)
+        
+        
+        //Create object shadow
+        let shadow = NSShadow()
+        shadow.shadowColor = UIColor(white: 0.0, alpha: 0.75)
+        shadow.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        
+        // Set font, size, color and shadow
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-CondensedBlack", size: 21.0)!,
+            NSAttributedStringKey.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),
+            NSAttributedStringKey.shadow: shadow
+        ]
+        
+        
+        
+        
         return true
     }
 

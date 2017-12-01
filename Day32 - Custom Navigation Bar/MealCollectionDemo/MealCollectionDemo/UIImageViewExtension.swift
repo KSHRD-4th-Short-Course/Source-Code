@@ -12,13 +12,14 @@ let imageCache = NSCache<AnyObject, AnyObject>()
 
 extension UIImageView {
     
-    func downloadImageWith(urlString: String) {
+    func downloadImageWith(urlString: String, completion: @escaping () -> ()) {
         // Remove image
         self.image = nil
         
         // Read image from cache
         if let imageFromCache = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
             self.image = imageFromCache
+            completion()
             return
             
         }
@@ -32,6 +33,7 @@ extension UIImageView {
                     let imageToCache = UIImage(data: imageData)
                     imageCache.setObject(imageToCache!, forKey: urlString as AnyObject)
                     self.image = imageToCache
+                    completion()
                 }
             } catch  {
                 print("download image error")
