@@ -22,7 +22,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func showAlert(_ sender: Any) {
-        alertWithTextField()
+        alertWithActionSheet(button: sender)
     }
     
     func simpleAlert() {
@@ -67,7 +67,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let message = "This is alert message!"
         
         // Alert Controller
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.actionSheet)
         
         // Add textfield
         alertController.addTextField { (usernameTextField) in
@@ -120,8 +120,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
-   
-    
     @objc func handleTextFieldTextDidChangeNotification(notification: Notification) {
        
         // Sender object
@@ -141,6 +139,49 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
 
+    func alertWithActionSheet(button: Any) {
+        // Title
+        let title = "Welcome"
+        
+        // Message
+        let message = "This is alert message!"
+        
+        // Alert Controller
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        // Alert button
+        let okButton = UIAlertAction(title: "OK", style: .default) { _ in
+            print("OK button pressed!")
+        }
+        
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            print("Cancel button pressed!")
+        }
+        
+        let other = UIAlertAction(title: "Other", style: .destructive) { _ in
+            print("Other button pressed!")
+        }
+        
+        // Add button to controller
+        alertController.addAction(okButton)
+        alertController.addAction(cancel)
+        alertController.addAction(other)
+        
+        
+        if let popoverAlert = alertController.popoverPresentationController {
+            let btn = button as? UIButton
+            
+            popoverAlert.sourceRect = (btn?.frame)!
+            popoverAlert.sourceView = view
+            popoverAlert.permittedArrowDirections = .any
+
+        }
+        
+        // Present Alert Controller
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
 
