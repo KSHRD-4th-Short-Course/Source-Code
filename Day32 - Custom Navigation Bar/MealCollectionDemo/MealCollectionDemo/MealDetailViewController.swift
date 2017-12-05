@@ -26,7 +26,7 @@ class MealDetailViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItemTitle.title = mealHolder["name"]
-        
+       navigationItem.largeTitleDisplayMode = .never
         // Do any additional setup after loading the view.
         nameLabel.text = mealHolder["name"]
         categoryLabel.text = mealHolder["category"]

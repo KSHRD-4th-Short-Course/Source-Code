@@ -18,7 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // Set navigation bar background
-        UINavigationBar.appearance().setBackgroundImage(#imageLiteral(resourceName: "navigation_background"), for: .default)
+        //UINavigationBar.appearance().setBackgroundImage(#imageLiteral(resourceName: "navigation_background"), for: .default)
+        UINavigationBar.appearance().barTintColor = UIColor(patternImage: #imageLiteral(resourceName: "navigation_background"))
+        
         
         
         //Create object shadow
