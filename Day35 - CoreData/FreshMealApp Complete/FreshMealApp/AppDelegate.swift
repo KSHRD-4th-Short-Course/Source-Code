@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Set navigation bar background
         //UINavigationBar.appearance().setBackgroundImage(#imageLiteral(resourceName: "navigation_background"), for: .default)
-        UINavigationBar.appearance().barTintColor = #colorLiteral(red: 0.5416520834, green: 0.7782646418, blue: 0.7277004123, alpha: 1)
+        //UINavigationBar.appearance().barTintColor = #colorLiteral(red: 0.5416520834, green: 0.7782646418, blue: 0.7277004123, alpha: 1)
         
         //Create object shadow
         let shadow = NSShadow()
