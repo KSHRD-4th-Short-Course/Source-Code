@@ -85,4 +85,11 @@ class MealService {
             print(error)
         }
     }
+    
+    // Download Image and Save to library
+    func downloadImage(url: String) {
+        let data = try? Data(contentsOf: URL(string: url)!)
+        let image = UIImage(data: data!)
+        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+    }
 }
