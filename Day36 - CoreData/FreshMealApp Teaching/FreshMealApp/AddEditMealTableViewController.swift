@@ -56,8 +56,9 @@ class AddEditMealTableViewController: UITableViewController, UIImagePickerContro
     // Browse Image library
     @IBAction func browseImage(_ sender: Any) {
         print(#function)
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = false // or true
+        imagePicker.sourceType = .photoLibrary // or .camera
+        // imagePicker.mediaTypes = [kUTTypeImage as String] or [kUTTypeMovie as String] or [kUTTypeImage as String, kUTTypeMovie as String]
         present(imagePicker, animated: true, completion: nil)
     }
     
