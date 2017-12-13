@@ -1,88 +1,99 @@
 //
-//  PersonService.swift
-//  MealCollectionDemo
+//  MealService.swift
+//  FreshMealApp
 //
-//  Created by Kokpheng on 12/5/17.
-//  Copyright © 2017 KSHRD. All rights reserved.
+//  Created by KSHRD on 12/7/17.
+//  Copyright © 2017 Kokpheng. All rights reserved.
 //
 
+// Step 0
 import UIKit
 import CoreData
 
+// Step 1
 extension Meal {
-    // Insert code here to add functionality to your managed object subclass
+    // Entity name
     static let entityName = "Meal"
 }
 
+// Step 2
 class MealService {
     
-    // Create object
+    // Step 3: Create object
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
-    // Creates a new Meal
-    func create(title: String, shortDescription: String, longDescription: String, thumbnail: Data) -> Meal {
-        
+    // Step 4: Create Meal
+    func create(title: String,
+                shortDescription: String,
+                longDescription: String,
+                thumbnailImage: Data) -> Meal {
+       
         let newMeal = NSEntityDescription.insertNewObject(forEntityName: Meal.entityName, into: context) as! Meal
         newMeal.title = title
         newMeal.short_description = shortDescription
         newMeal.long_description = longDescription
-        newMeal.image = thumbnail
+        newMeal.image = thumbnailImage
+        
         return newMeal
     }
     
-    // Gets a meal by id
+    // Step 6: Get by id
     func getBy(id: NSManagedObjectID) -> Meal? {
         return context.object(with: id) as? Meal
     }
     
-    // Gets all that fulfill the specified predicate.
+    // Step 7: Gets all that fulfill the specified predicate.
     // Predicates examples:
     // - NSPredicate(format: "name == %@", "Juan Carlos")
     // - NSPredicate(format: "name contains %@", "Juan")
     func get(withPredicate queryPredicate: NSPredicate) -> [Meal]{
         
+        // fetch record in entity
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Meal.entityName)
+        
+        // Apply condition
         fetchRequest.predicate = queryPredicate
         
         do {
             let response = try context.fetch(fetchRequest)
-            return response as! [Meal]
+            return response as! [Meal] // convert record to datatype meal
         } catch let error as NSError {
             // failure
             print(error)
-            return [Meal]()
-        }
-    }
-    
-    // Gets all.
-    func getAll() -> [Meal]{
-        return get(withPredicate: NSPredicate(value:true))
-    }
-    
-    // Updates a meal
-    func update(updatedPerson: Meal){
-        if let meal = getBy(id: updatedPerson.objectID){
-            meal.title = updatedPerson.title
-            meal.short_description = updatedPerson.short_description
-            meal.long_description = updatedPerson.long_description
-            meal.image = updatedPerson.image
+            return [Meal]() // return empty record
         }
     }
 
-    // Deletes a meal
-    func delete(id: NSManagedObjectID){
-        if let mealToDelete = getBy(id: id){
-            context.delete(mealToDelete)
+    // Step 8: Get all record
+    func getAll() -> [Meal] {
+        return get(withPredicate: NSPredicate(value: true))
+    }
+    
+    // Step 9: Update record
+    func update(updatedMeal: Meal) {
+        if let meal = getBy(id: updatedMeal.objectID) {
+            meal.title =  updatedMeal.title
+            meal.short_description = updatedMeal.short_description
+            meal.long_description = updatedMeal.long_description
+            meal.image = updatedMeal.image
         }
     }
     
-    // Saves all changes
-    func saveChanges(){
-        do{
+    // Step 10: Delete record
+    func delete(id: NSManagedObjectID) {
+        if let mealToDelte = getBy(id: id) {
+            context.delete(mealToDelte)
+        }
+    }
+
+    // Step 11: Save all change
+    func saveChange() {
+        do {
+            // Success
             try context.save()
         } catch let error as NSError {
             // failure
-            print(error)
+            print(error.localizedDescription)
         }
     }
     

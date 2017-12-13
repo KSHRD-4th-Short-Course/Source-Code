@@ -22,7 +22,6 @@ class MealService {
     // Step 3: Create object
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
-    
     // Step 4: Create Meal
     func create(title: String,
                 shortDescription: String,
@@ -97,19 +96,11 @@ class MealService {
             print(error.localizedDescription)
         }
     }
-
+    
+    // Download Image and Save to library
+    func downloadImage(url: String) {
+        let data = try? Data(contentsOf: URL(string: url)!)
+        let image = UIImage(data: data!)
+        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

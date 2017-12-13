@@ -13,7 +13,7 @@ class AddEditMealTableViewController: UITableViewController, UIImagePickerContro
     
     // Property
     var mealHolder: Meal? = nil
-    let imagePicker = UIImagePickerController()
+    let imagePicker = UIImagePickerController() // Create image picker view controller
     let service = MealService()
     
     // Outlet
@@ -27,8 +27,10 @@ class AddEditMealTableViewController: UITableViewController, UIImagePickerContro
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Navigation Bar
         setupNavigationBar()
         
+        // Round corner view
         setupViewCornerRadius(view: longDescriptionTextView)
         setupViewCornerRadius(view: thumbnailImageView)
         
@@ -45,7 +47,7 @@ class AddEditMealTableViewController: UITableViewController, UIImagePickerContro
     func setupViewCornerRadius(view: UIView) {
         
         let layer = view.layer
-        // Corner
+        // Border radius
         layer.cornerRadius = 5
         layer.masksToBounds = true
         
@@ -55,6 +57,8 @@ class AddEditMealTableViewController: UITableViewController, UIImagePickerContro
     }
     
     func setupNavigationBar() {
+        navigationItem.title = "Add / Update"
+        
         if #available(iOS 11.0, *) {
             addEditMealNavigationBar.largeTitleDisplayMode = .never
         }
@@ -64,7 +68,6 @@ class AddEditMealTableViewController: UITableViewController, UIImagePickerContro
     
     // Browse Image library
     @IBAction func browseImage(_ sender: Any) {
-        print(#function)
         imagePicker.allowsEditing = false // or true
         imagePicker.sourceType = .photoLibrary // or .camera
         // imagePicker.mediaTypes = [kUTTypeImage as String] //or [kUTTypeMovie as String] or [kUTTypeImage as String, kUTTypeMovie as String]
@@ -77,6 +80,7 @@ class AddEditMealTableViewController: UITableViewController, UIImagePickerContro
         
         // Edit Screen
         if self.mealHolder != nil {
+            // Update
             mealHolder?.title = titleTextField.text!
             mealHolder?.short_description = shortDescriptionTextField.text!
             mealHolder?.long_description = longDescriptionTextView.text!
@@ -93,12 +97,11 @@ class AddEditMealTableViewController: UITableViewController, UIImagePickerContro
         
         // Save all change
         service.saveChange()
-        self.backAction(UIButton())
+        self.navigationController?.popViewController(animated: true) // After save go back to home.
     }
     
+    // MARK: - UIImagePickerControllerDelegate Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        print(#function)
-        
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             thumbnailImageView.contentMode = .scaleAspectFit
             thumbnailImageView.image = pickedImage
@@ -108,17 +111,10 @@ class AddEditMealTableViewController: UITableViewController, UIImagePickerContro
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        print(#function)
         dismiss(animated: true, completion: nil)
     }
     
-   
-    
-    
     @IBAction func backAction(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true) // After save go back to home.
     }
 }
-
-
-

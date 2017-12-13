@@ -29,10 +29,25 @@ class MealDetailViewController: UIViewController {
         prepareData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
+        if let image = thumbnailImageView.image {
+            // Calculate aspect
+            let aspect = image.size.height / image.size.width
+            
+            thumbnailImageHeightConstraint.constant = view.frame.size.width * aspect
+        }
+    }
+    
     func setupContainerView() {
+        // border radius
         containerView.layer.cornerRadius = 5
         containerView.layer.masksToBounds = true
         
+        // border
         containerView.layer.borderColor = UIColor.lightGray.cgColor
         containerView.layer.borderWidth = 0.5
     }
@@ -47,26 +62,14 @@ class MealDetailViewController: UIViewController {
             thumbnailImageView.image = UIImage(data: meal.image!)
             
             if let image = thumbnailImageView.image {
+                // Calculate aspect
                 let aspect = image.size.height / image.size.width
-                
                 thumbnailImageHeightConstraint.constant = view.frame.size.width * aspect
             }
         }
     }
     
-    
     @IBAction func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

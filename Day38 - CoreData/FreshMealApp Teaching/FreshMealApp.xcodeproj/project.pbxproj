@@ -73,10 +73,10 @@
 				EC425F4C1FD81D420068FF1A /* HomeTableViewController.swift */,
 				EC952DCA1FD811D600BCFC4C /* AddEditMealTableViewController.swift */,
 				EC73B5211FDFF55F00378E8F /* MealDetailViewController.swift */,
-				EC2A3B0F1FD95BED00B56314 /* MealService.swift */,
-				6F48940D1FD7A26900350C52 /* Main.storyboard */,
 				6F48940A1FD7A17A00350C52 /* MealTableViewCell.xib */,
 				6F4894091FD7A17A00350C52 /* MealTableViewCell.swift */,
+				EC2A3B0F1FD95BED00B56314 /* MealService.swift */,
+				6F48940D1FD7A26900350C52 /* Main.storyboard */,
 				6F48940F1FD7A26900350C52 /* LaunchScreen.storyboard */,
 				6F4894021FD7A16900350C52 /* Assets.xcassets */,
 				6F4893F91FD7A13A00350C52 /* Info.plist */,
@@ -306,7 +306,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CYU4AKW9QG;
 				INFOPLIST_FILE = FreshMealApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kshrd.FreshMealApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -324,7 +324,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CYU4AKW9QG;
 				INFOPLIST_FILE = FreshMealApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kshrd.FreshMealApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -19,7 +19,8 @@ class MealTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        // border radius
+        
+        // Border radius
         containerView.layer.cornerRadius = 5
         containerView.layer.masksToBounds = true
         
@@ -34,8 +35,9 @@ class MealTableViewCell: UITableViewCell {
         //        containerView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
         //
         //        containerView.clipsToBounds = true
+        
     }
-
+    
     func configureCell(with meal: Meal) {
         // Set data to control
         titleLabel.text = meal.title
