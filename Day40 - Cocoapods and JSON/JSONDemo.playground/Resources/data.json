@@ -1,0 +1,14 @@
+{
+    "dataTitle": "JSON Tutorial",
+    "swiftVersion": 3.0,
+    "users": [
+                 {
+                     "name":"Dara",
+                     "age": 30
+                 },
+                 {
+                     "name":"Chan",
+                     "age": 20
+                 }
+             ]
+}
