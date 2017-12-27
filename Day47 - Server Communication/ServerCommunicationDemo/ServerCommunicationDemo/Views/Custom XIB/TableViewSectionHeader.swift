@@ -38,10 +38,12 @@ class TableViewSectionHeader: UITableViewHeaderFooterView {
     }
     
     func configureCellWithTitle(_ title: String, dateTime: String, imageUrl: String)  {
-        
+        /// Title Label
         titleLabel.text = title
+        /// Profile Image View
         profileImageView.kf.setImage(with: URL(string: imageUrl), placeholder: #imageLiteral(resourceName: "noimage_thumbnail"))
         
+        /// Date Label
         // Create DateFormatter
         let dateFormatter = DateFormatter()
         
@@ -57,6 +59,4 @@ class TableViewSectionHeader: UITableViewHeaderFooterView {
         let stringFromDate = dateFormatter.string(from: dateFromString!)
         dateTimeLabel.text = stringFromDate
     }
-    
-    
 }

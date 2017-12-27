@@ -9,8 +9,9 @@
 import UIKit
 import FBSDKLoginKit
 import SCLAlertView
+import NVActivityIndicatorView
 
-class HomeTableViewController: UITableViewController, ArticleServiceDelegate {
+class HomeTableViewController: UITableViewController, ArticleServiceDelegate, NVActivityIndicatorViewable {
     
     // Property
     var articles: [Article] = []
@@ -30,7 +31,7 @@ class HomeTableViewController: UITableViewController, ArticleServiceDelegate {
         
         // register class
         let nib = UINib(nibName: "TableViewSectionHeader", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "TableViewSectionHeaderIdentifier") // register and set identifier
+        tableView.register(nib, forHeaderFooterViewReuseIdentifier: "TableViewSectionHeaderIdentifier") // register and set identifier
         tableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         
@@ -45,14 +46,24 @@ class HomeTableViewController: UITableViewController, ArticleServiceDelegate {
     
     // Get data by page number and limit(set static number 15)
     func getData(pageNumber: Int) {
+        if pageNumber == 1 {
+            // Create NVActivityIndicator
+            let size = CGSize(width: 30, height: 30)
+            startAnimating(size, message: "Loading...", type: .ballBeat)
+        }
+        
         articleService.getData(pageNumber: pageNumber)
     }
     
     func didRecievedArticle(with articles: [Article]?, pagination: Pagination?, error: Error?) {
+        self.stopAnimating() // Stop NVActivityIndicatorView
+        // hide footer and indicator
+        self.footerView.isHidden = true
+        self.footerindicator.stopAnimating()
         
         // Check error
         if let err = error { SCLAlertView().showError("Error", subTitle: err.localizedDescription); return }
-        
+        print(pagination?.page)
         self.pagination = pagination!
         
         // if current == 1 means first request, else append data
@@ -92,24 +103,40 @@ extension HomeTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableViewSectionHeaderIdentifier") as! TableViewSectionHeader
+        let headerCell = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: "TableViewSectionHeaderIdentifier") as! TableViewSectionHeader
         let article = self.articles[section]
-
+        headerCell.configureCellWithTitle(article.author.name, dateTime: article.createdDate, imageUrl: article.author.imageUrl)
         return headerCell
     }
     
     // Row
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.articles.count
+        return 1
+        // return self.arrayList[section].count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "homeCell", for: indexPath) as! HomeTableViewCell
-        
+
         // Configure the cell...
-        cell.configureCell(article: self.articles[indexPath.row])
+        cell.configureCell(article: self.articles[indexPath.section])
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        print("\(indexPath.section + 1)  == \(self.articles.count)")
+        // last display cell > or = amount of article
+        if indexPath.section + 1 >= self.articles.count {
+            
+            // Current < total pages
+            if self.pagination.page < self.pagination.totalPages {
+                self.footerView.isHidden = false
+                self.footerindicator.startAnimating()
+                getData(pageNumber: self.pagination.page + 1)
+            }
+        }
     }
     
     
