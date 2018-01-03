@@ -170,8 +170,31 @@ extension HomeTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        // Delete Button
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
+            // Start animate
             
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false
+            )
+            let alertWarning = SCLAlertView(appearance: appearance)
+            alertWarning.addButton("OK", action: {
+                
+                self.startAnimating()
+                let article = self.articles[indexPath.section]
+                self.articleService.deleteArticle(with: "\(article.id)", completion: { (error) in
+                    // Stop animate
+                    self.stopAnimating()
+                    // Check error
+                    if let err = error { SCLAlertView().showError("Error", subTitle: err.localizedDescription); return }
+                    
+                    tableView.beginUpdates()
+                    self.articles.remove(at: indexPath.section)
+                    tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+                    tableView.endUpdates()
+                })
+            })
+            alertWarning.showWait("Delete article", subTitle: "Do you want to delete this article?")
         }
         
         // Edit Button

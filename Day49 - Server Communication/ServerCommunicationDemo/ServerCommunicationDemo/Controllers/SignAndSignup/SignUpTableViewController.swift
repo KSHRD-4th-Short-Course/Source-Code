@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SCLAlertView
 
 class SignUpTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -28,7 +29,26 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
     
     // TODO: SignIn IBAction
     @IBAction func signUpAction(_ sender: Any) {
-       
+       // Validation Password field
+        if passwordTextField[0].text != passwordTextField[1].text {
+            SCLAlertView().showError("Error", subTitle: "Password not match")
+            return
+        }
+        
+        // Post parameter
+        let paramaters = ["email": self.emailTextField.text!,
+                          "name": self.nameTextField.text!,
+                          "password": self.passwordTextField[0].text!,
+                          "gender": self.genderSegmentedControl.selectedSegmentIndex == 0 ? "M" : "F"]
+        
+        // image
+        let photo = ["photo": UIImageJPEGRepresentation(self.profileImageView.image!, 1)!]
+        
+        UserService.shared.singup(paramaters: paramaters, files: photo) { (response, error) in
+            
+        }
+        
+        
     }
     
     // TODO: Browse Image

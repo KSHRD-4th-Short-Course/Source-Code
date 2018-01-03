@@ -136,7 +136,30 @@ class ArticleService {
     }
     
     func deleteArticle(with id: String, completion: @escaping (Error?) -> ()) {
-        
+        Alamofire.request("\(DataManager.URL.ARTICLE)/\(id)",
+            method: .delete,
+            headers: nil)
+            .responseJSON { (response) in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    
+                    guard let code = json["code"].int, code == 2222 else {
+                        // Report any error we got.
+                        let dict =  [NSLocalizedDescriptionKey : json["message"].string ?? "unknown"]
+                        let error = NSError(domain: response.request?.url?.host ?? "unknown", code: 9999, userInfo: dict)
+                        // Error
+                        completion(error)
+                        
+                        return
+                    }
+                    // Success
+                    completion(nil)
+                    
+                case .failure(let error):
+                    completion(error)
+                }
+        }
     }
     
     func uploadFile(file : Data, completion: @escaping (String?, Error?) -> ()) {

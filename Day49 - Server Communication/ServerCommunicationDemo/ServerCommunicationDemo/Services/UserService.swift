@@ -17,6 +17,27 @@ class UserService {
     
     func singup(paramaters: [String: String], files: [String:Data], completion: @escaping (DataResponse<Any>?, Error?)->()) {
         
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            // Append paramater string
+            for (key, value) in paramaters {
+                multipartFormData.append(value.data(using: .utf8, allowLossyConversion: false)!, withName: key)
+            }
+            
+            // Append paramater file
+            for (key, value) in files {
+                multipartFormData.append(value, withName: key, fileName: ".jpg", mimeType: "image/jpeg")
+            }
+            
+        }, to: DataManager.URL.USER, method: .post, headers: nil) { (encodingResult) in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                    upload.responseJSON(completionHandler: { (response) in
+                        completion(response, nil)
+                    })
+            case .failure(let error):
+                completion(nil, error)
+            }
+        }
     }
     
     func signin(paramaters: [String: Any], completion: @escaping (DataResponse<Any>?, Error?)->()) {

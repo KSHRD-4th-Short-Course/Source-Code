@@ -16,6 +16,7 @@ struct DataManager {
         static let AUTH_WITH_FACEBOOK = BASE + "user/authentication_with_facebook"
         static let ARTICLE = BASE + "articles"
         static let FILE = BASE + "uploadfile/single"
+        static let USER = BASE + "user"
     }
 }
 
