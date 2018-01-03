@@ -105,7 +105,7 @@ class SignInTableViewController: UITableViewController {
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
         
         // Create facebook graph with field
-        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, gender, birthday, email, picture.type(large)"]).start { (connection, result, error) in
+        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, gender, email, picture.type(large)"]).start { (connection, result, error) in
             
             // Check error from server
             if let err = error {
