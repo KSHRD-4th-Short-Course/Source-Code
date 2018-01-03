@@ -111,8 +111,6 @@ class HomeTableViewController: UITableViewController, ArticleServiceDelegate, NV
             let destView = segue.destination as! DetailTableViewController
             destView.articleId = sender as? String
         }
-        
-        
     }
 }
 

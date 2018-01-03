@@ -12,6 +12,7 @@ import SwiftyJSON
 
 protocol ArticleServiceDelegate {
     func didRecievedArticle(with articles: [Article]?, pagination: Pagination?, error: Error?)
+    func didRecievedArticle(with articles: Article?, error: Error?)
     
     func didAddedArticle(error: Error?)
     func didUpdatedArticle(error: Error?)
@@ -19,6 +20,7 @@ protocol ArticleServiceDelegate {
 
 extension ArticleServiceDelegate {
     func didRecievedArticle(with articles: [Article]?, pagination: Pagination?, error: Error?) {}
+    func didRecievedArticle(with articles: Article?, error: Error?) {}
     
     func didAddedArticle(error: Error?) {}
     func didUpdatedArticle(error: Error?) {}
@@ -74,7 +76,37 @@ class ArticleService {
     }
     
     func getArticle(by id: String) {
-        
+        Alamofire.request("\(DataManager.URL.ARTICLE)/\(id)",
+                          method: .get,
+                          encoding: URLEncoding.default, // JSONEncoding.default
+                          headers: DataManager.HEADER)
+            .responseJSON { (response) in
+
+                switch response.result {
+                case .success(let value):
+                    
+                    let json = JSON(value)
+                    
+                    guard let code = json["code"].int, code == 2222 else {
+                        // Report any error
+                        let dictionary = [NSLocalizedDescriptionKey: json["message"].string ?? "unknown"]
+                        let host = response.request?.url?.host ?? "unknown"
+                        let error = NSError(domain: host, code: 9999, userInfo: dictionary)
+                        self.delegate?.didRecievedArticle(with: nil, pagination: nil, error: error)
+                        return
+                    }
+                   
+                    // Get Article
+                    let articles = Article(json["data"])
+                    
+                    // Call delegate with success
+                    self.delegate?.didRecievedArticle(with: articles, error: nil)
+                    
+                case .failure(let error):
+                    // Call delegate with error
+                    self.delegate?.didRecievedArticle(with: nil, error: error)
+                }
+        }
     }
     
     func addArticle(paramaters: [String: Any]) {
