@@ -93,8 +93,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let okButton = UIAlertAction(title: "OK", style: .default) { _ in
             let name = alertController.textFields?.first?.text
             let profileUrl = alertController.textFields?.last?.text
-            
-            
+            print("Name: \(name)\nUrl: \(profileUrl)")
+            self.ref.child("stars").child(name!).setValue(["profileUrl":profileUrl!])
+           
+            self.ref.childByAutoId() // Get AutoID
+            print(self.ref.childByAutoId())
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
